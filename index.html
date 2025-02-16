@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moja Island - Strategy Game (Communautés Dynamiques)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    canvas {
+      background-color: #e0f7fa;
+      border: 2px solid black;
+      margin-top: 10px;
+    }
+    .info {
+      margin: 20px;
+      font-size: 16px;
+    }
+    .resource-table {
+      position: fixed;
+      background-color: white;
+      border: 1px solid black;
+      padding: 10px;
+      display: none;
+      font-size: 14px;
+      z-index: 1000;
+    }
+    .flex-container {
+      display: flex;
+      align-items: start;
+      gap: 20px;
+    }
+    #plantDataDiv {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 300px;
+      background-color: #fff;
+      border: 1px solid #000;
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+      z-index: 999;
+    }
+    #plantDataDiv h3 {
+      margin: 0 0 5px 0;
+      font-size: 16px;
+    }
+    #plantDataTable {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #plantDataTable th,
+    #plantDataTable td {
+      border: 1px solid #ccc;
+      padding: 4px;
+    }
+    #plantDataTable th {
+      background-color: #f0f0f0;
+    }
+    .sheet-selector {
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Moja Island - Strategy Game (Communautés Dynamiques)</h1>
+  <div class="info">
+    ✅ Récupération dynamique des communautés depuis Google Sheets.<br>
+    ✅ Survolez une communauté pour voir ses ressources et ses centrales.<br>
+    ✅ "Plant Data" dans le coin de la page.<br>
+    🔄 Mises à jour régulières.<br>
+  </div>
+
+  <!-- Choix de la feuille -->
+  <div class="sheet-selector">
+    <label for="spreadsheetSelect">Choose a Spreadsheet:</label>
+    <select id="spreadsheetSelect">
+      <option value="1Lmzju6cBieAucY0-xjLUcgVYEAfOPQvj_fK650-au_E">1AGL1</option>
+      <option value="1bOyD6jHGMPtHucKgpLC-aPHPymbcQJX7Ji8Gl4qy0Q8">1AGL2</option>
+      <option value="1OrBNjhemTnu_wDfPlS4QiWTHIsJcZvK7dQN5WGd9QuA">Test</option>
+    </select>
+  </div>
+
+  <!-- Bloc qui affiche la 'Plant Data' -->
+  <div id="plantDataDiv">
+    <h3>Plant Types</h3>
+    <div id="plantDataContent">Loading...</div>
+  </div>
+
+  <!-- Fenêtre flottante pour afficher les infos d'une communauté -->
+  <div class="resource-table" id="resourceTable"></div>
+  
+  <!-- Canvas pour la carte et les communautés -->
+  <canvas id="mojaCanvas" width="800" height="600"></canvas>
+
+  <script src="script.js"></script>
+  <script src="script1.js"></script>
+  <script src="additionalLogic.js"></script>
+
+
+  
+</body>
+</html>
