@@ -50,5 +50,5 @@ jobs:
       - name: 🚀 Déployer sur GitHub Pages
         uses: actions/deploy-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: github-pages
