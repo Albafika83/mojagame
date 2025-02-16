@@ -11,7 +11,7 @@ const plantDataDiv = document.getElementById('plantDataDiv');
 const plantDataContent = document.getElementById('plantDataContent');
 
 // Your API key and spreadsheet ID
-const API_KEY = 'AIzaSyC0fyVMLcqWYpMZ9pL6935MVQBSnTlMELQ';
+const API_KEY = 'process.env.GOOGLE_API_KEY';
 let SPREADSHEET_ID = document.getElementById('spreadsheetSelect').value;
 
 // Array to store all communities
