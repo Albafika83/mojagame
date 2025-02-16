@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Récupérer le dépôt
@@ -20,13 +20,27 @@ jobs:
       - name: 🛡️ Créer api_key.js avec la clé secrète
         run: echo "window.API_KEY = '${{ secrets.GOOGLE_API_KEY }}';" > api_key.js
 
-      - name: 🚀 Télécharger les fichiers pour GitHub Pages
+      - name: 🚀 Préparer les fichiers pour GitHub Pages
+        run: mkdir -p public && cp -r * public
+
+      - name: 📤 Upload des fichiers (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
-          path: |
-            ./
-            !node_modules/
+          path: public
 
-      - name: 📤 Publier la page
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 📥 Télécharger l'Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: public
+
+      - name: 🚀 Déployer sur GitHub Pages
         uses: actions/deploy-pages@v2
