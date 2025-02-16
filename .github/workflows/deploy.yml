@@ -35,4 +35,16 @@ jobs:
 
   deploy:
     needs: build
-   
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Télécharger l'artefact (github-pages)
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: public
+
+      - name: 🚀 Déployer sur GitHub Pages
+        uses: actions/deploy-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
