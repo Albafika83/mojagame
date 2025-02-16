@@ -1,0 +1,22 @@
+name: Deploy with Hidden API Key
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Récupérer le code
+        uses: actions/checkout@v3
+
+      - name: 🔑 Injecter la clé API
+        run: echo "window.API_KEY = '${{ secrets.GOOGLE_API_KEY }}';" > api_key.js
+
+      - name: 🚀 Déployer
+        uses: actions/upload-pages-artifact@v1
+
+      - name: 📤 Publier
+        uses: actions/deploy-pages@v2
