@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p public
           cp index.html public/
-          cp -r ./* public/
+          cp -r $(ls -A | grep -v '^public$') public/ # Copie tout sauf le dossier public
           echo "✅ Dossier public créé"
           ls -R public # Affiche la structure du dossier public pour débogage
 
