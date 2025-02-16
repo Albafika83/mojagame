@@ -1,22 +1,32 @@
-name: Deploy with Hidden API Key
+name: Deploy GitHub Pages with API Key
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: 🛎️ Récupérer le code
+      - name: 📥 Récupérer le dépôt
         uses: actions/checkout@v3
 
-      - name: 🔑 Injecter la clé API
+      - name: 🛡️ Créer api_key.js avec la clé secrète
         run: echo "window.API_KEY = '${{ secrets.GOOGLE_API_KEY }}';" > api_key.js
 
-      - name: 🚀 Déployer
-        uses: actions/upload-pages-artifact@v1
+      - name: 🚀 Télécharger les fichiers pour GitHub Pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: |
+            ./
+            !node_modules/
 
-      - name: 📤 Publier
+      - name: 📤 Publier la page
         uses: actions/deploy-pages@v2
