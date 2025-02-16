@@ -21,9 +21,13 @@ jobs:
         run: echo "window.API_KEY = '${{ secrets.GOOGLE_API_KEY }}';" > api_key.js
 
       - name: 🚀 Préparer les fichiers pour GitHub Pages
-        run: mkdir -p public && cp -r * public
+        run: |
+          mkdir -p public
+          cp index.html public/
+          cp -r ./* public/
+          echo "✅ Dossier public créé"
 
-      - name: 📤 Upload des fichiers (Artifact)
+      - name: 📤 Upload de l'artefact (github-pages)
         uses: actions/upload-artifact@v4
         with:
           name: github-pages
@@ -31,16 +35,4 @@ jobs:
 
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: 📥 Télécharger l'Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: public
-
-      - name: 🚀 Déployer sur GitHub Pages
-        uses: actions/deploy-pages@v2
+   
