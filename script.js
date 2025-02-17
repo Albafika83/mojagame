@@ -131,6 +131,10 @@ async function fetchData() {
       }
     });
   }
+
+  // 3) Fetch 'Ressources Gains' sheet
+  await fetchResourceGains();
+  
   if (communities.length > 0) {
     restoreCommunityPositions();
   }
@@ -139,6 +143,37 @@ async function fetchData() {
   displayTotalEnergy(totalEnergy);
 
 }
+
+async function fetchResourceGains() {
+  const resourceGainsData = await fetchSheetData('Ressources Gains');
+  if (resourceGainsData.length > 1) {
+    const headers = resourceGainsData[0];
+    const rows = resourceGainsData.slice(1);
+
+    // Générer le tableau HTML
+    let html = '<table>';
+    html += '<tr>';
+    headers.forEach(header => {
+      html += `<th>${header}</th>`;
+    });
+    html += '</tr>';
+
+    rows.forEach(row => {
+      html += '<tr>';
+      row.forEach(cell => {
+        html += `<td>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</table>';
+
+    // Afficher le tableau dans le conteneur
+    document.getElementById('resourceGainsContent').innerHTML = html;
+  } else {
+    document.getElementById('resourceGainsContent').innerHTML = "No data for 'Ressources Gains'.";
+  }
+}
+
 /************************************************************
  *   Dynamic Colors
  ************************************************************/
