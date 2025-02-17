@@ -132,8 +132,7 @@ async function fetchData() {
     });
   }
 
-  // 3) Fetch 'Ressources Gains' sheet
-  await fetchResourceGains();
+
   
   if (communities.length > 0) {
     restoreCommunityPositions();
